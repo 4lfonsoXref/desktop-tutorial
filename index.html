@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,8 +79,7 @@
       font-family: var(--font-circular);
       font-size: 0.85rem;
       font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       cursor: pointer;
       color: var(--text-black);
       display: flex;
@@ -148,10 +147,9 @@
     }
 
     .hero-label {
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 0.5px;
       color: var(--muted);
       margin-bottom: 1.5rem;
     }
@@ -188,10 +186,9 @@
       background: none;
       border: none;
       font-family: var(--font-circular);
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.2px;
       color: var(--muted);
       cursor: pointer;
       transition: color 0.3s;
@@ -314,8 +311,7 @@
     .footer-col h4 {
       font-size: 0.85rem;
       font-weight: 700; /* Circular Bold */
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       margin-bottom: 1.5rem;
       color: var(--muted);
     }
@@ -401,10 +397,9 @@
   <!-- FILTRI PROGETTI -->
   <div class="controls-bar" id="projects">
     <div class="filter-buttons">
-      <button class="filter-btn active" onclick="filterProjects('all')">All Work</button>
-      <button class="filter-btn" onclick="filterProjects('architecture')">Architecture</button>
-      <button class="filter-btn" onclick="filterProjects('interiors')">Interiors</button>
-      <button class="filter-btn" onclick="filterProjects('concepts')">AI Concepts</button>
+      <button class="filter-btn active" onclick="filterProjects('urban-architecture', event)">Urban & Architecture</button>
+      <button class="filter-btn" onclick="filterProjects('interior', event)">Interior</button>
+      <button class="filter-btn" onclick="filterProjects('art-collectible', event)">Art & Collectible Design</button>
     </div>
     <span class="project-count">03 Selected Projects</span>
   </div>
@@ -413,23 +408,23 @@
   <main class="projects-grid">
 
     <!-- PROGETTO 1 -->
-    <a href="#" class="project-item" data-category="architecture">
+    <a href="#" class="project-item" data-category="urban-architecture">
       <div class="project-media-wrapper">
-        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Monolith Pavilion">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Monolithic Pavilion">
       </div>
       <div class="project-meta">
         <div class="project-info">
           <h3>Monolithic Pavilion</h3>
-          <p>Architecture / Digital Fabrication</p>
+          <p>Urban & Architecture / Digital Fabrication</p>
         </div>
         <span class="project-number">01</span>
       </div>
     </a>
 
     <!-- PROGETTO 2 -->
-    <a href="#" class="project-item" data-category="interiors">
+    <a href="#" class="project-item" data-category="interior">
       <div class="project-media-wrapper">
-        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80" alt="Organic Retail">
+        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80" alt="Organic Spatial Experience">
       </div>
       <div class="project-meta">
         <div class="project-info">
@@ -441,14 +436,14 @@
     </a>
 
     <!-- PROGETTO 3 -->
-    <a href="#" class="project-item" data-category="concepts">
+    <a href="#" class="project-item" data-category="art-collectible">
       <div class="project-media-wrapper">
-        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" alt="AI Fluid Concept">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" alt="Fluid Landmark">
       </div>
       <div class="project-meta">
         <div class="project-info">
           <h3>Fluid Landmark</h3>
-          <p>AI Concept / Midjourney v6</p>
+          <p>Art & Collectible Design / 3D Printed Structure</p>
         </div>
         <span class="project-number">03</span>
       </div>
@@ -502,15 +497,17 @@
     menuBtn.addEventListener('click', toggleMenu);
 
     // Gestione Filtri Progetti
-    function filterProjects(category) {
+    function filterProjects(category, e) {
       const items = document.querySelectorAll('.project-item');
       const buttons = document.querySelectorAll('.filter-btn');
 
       buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      if (e && e.target) {
+        e.target.classList.add('active');
+      }
 
       items.forEach(item => {
-        if (category === 'all' || item.getAttribute('data-category') === category) {
+        if (item.getAttribute('data-category') === category) {
           item.style.display = 'flex';
         } else {
           item.style.display = 'none';
