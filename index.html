@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio External Reference — AI & Spatial Design</title>
+  
+  <!-- Font Circular (via CDN Fonts) e fallback Inter/Helvetica -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.cdnfonts.com/css/circular-std-sp" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       1. PALETTE & TIPOGRAFIA (PURE WHITE / BLACK / ACCENTS)
+       ========================================================= */
+    :root {
+      --bg-white: #ffffff;      /* Sfondo bianco puro */
+      --text-black: #000000;    /* Nero assoluto */
+      --border-gray: #e5e5e5;  /* Grigio per linee di griglia pulite */
+      --muted: #707070;         /* Grigio medio per metadati e sottotitoli */
+      
+      /* Circular con fallback di sistema */
+      --font-circular: 'Circular Std', 'Circular', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-white);
+      color: var(--text-black);
+      font-family: var(--font-circular);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* =========================================================
+       2. HEADER & LOGO (IN ALTO A SINISTRA)
+       ========================================================= */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-gray);
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .site-logo {
+      height: 48px; /* Dimensione logo */
+      width: auto;
+      display: block;
+    }
+
+    .menu-toggle {
+      background: none;
+      border: none;
+      font-family: var(--font-circular);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      color: var(--text-black);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Overlay Navigazione */
+    .nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--text-black);
+      color: var(--bg-white);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .nav-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-links {
+      list-style: none;
+      text-align: center;
+    }
+
+    .nav-links li {
+      margin: 1.5rem 0;
+    }
+
+    .nav-links a {
+      font-family: var(--font-circular);
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 700; /* Circular Bold */
+      color: var(--bg-white);
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.5;
+    }
+
+    /* =========================================================
+       3. HERO SECTION
+       ========================================================= */
+    .hero {
+      min-height: 80vh;
+      padding: 10rem 3rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      border-bottom: 1px solid var(--border-gray);
+      background-color: var(--bg-white);
+    }
+
+    .hero-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-circular);
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      font-weight: 700; /* Circular Bold */
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      max-width: 1200px;
+    }
+
+    /* =========================================================
+       4. CONTROLLI E FILTRI
+       ========================================================= */
+    .controls-bar {
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-gray);
+      flex-wrap: wrap;
+      gap: 1rem;
+      background-color: var(--bg-white);
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .filter-btn {
+      background: none;
+      border: none;
+      font-family: var(--font-circular);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      color: var(--text-black);
+      font-weight: 700; /* Circular Bold */
+    }
+
+    .project-count {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* =========================================================
+       5. GRIGLIA PROGETTI (EXTERNAL REFERENCE STYLE)
+       ========================================================= */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border-bottom: 1px solid var(--border-gray);
+      background-color: var(--bg-white);
+    }
+
+    .project-item {
+      border-right: 1px solid var(--border-gray);
+      border-bottom: 1px solid var(--border-gray);
+      padding: 3rem;
+      text-decoration: none;
+      color: var(--text-black);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background-color 0.4s ease;
+      background-color: var(--bg-white);
+    }
+
+    .project-item:nth-child(2n) {
+      border-right: none;
+    }
+
+    .project-item:hover {
+      background-color: #fcfcfc;
+    }
+
+    .project-media-wrapper {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background-color: #f0f0f0;
+      margin-bottom: 2rem;
+    }
+
+    .project-media-wrapper img,
+    .project-media-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .project-item:hover .project-media-wrapper img,
+    .project-item:hover .project-media-wrapper video {
+      transform: scale(1.03);
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 1rem;
+    }
+
+    .project-info h3 {
+      font-family: var(--font-circular);
+      font-size: 1.75rem;
+      font-weight: 700; /* Circular Bold */
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    .project-info p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .project-number {
+      font-family: var(--font-circular);
+      font-size: 1rem;
+      font-weight: 700; /* Circular Bold */
+      color: var(--muted);
+    }
+
+    /* =========================================================
+       6. FOOTER & LOGO FOOTER
+       ========================================================= */
+    footer {
+      padding: 6rem 3rem 3rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      background-color: var(--bg-white);
+    }
+
+    .footer-logo {
+      height: 36px;
+      width: auto;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .footer-brand p {
+      color: var(--muted);
+      max-width: 400px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .footer-col h4 {
+      font-size: 0.85rem;
+      font-weight: 700; /* Circular Bold */
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+      color: var(--muted);
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-col a {
+      color: var(--text-black);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: opacity 0.3s;
+    }
+
+    .footer-col a:hover {
+      opacity: 0.5;
+    }
+
+    /* =========================================================
+       7. RESPONSIVE DESIGN
+       ========================================================= */
+    @media (max-width: 900px) {
+      header, .hero, .controls-bar, footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      .site-logo {
+        height: 36px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-item {
+        border-right: none;
+        padding: 2rem 1.5rem;
+      }
+
+      footer {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <!-- LOGO CON LINK ESTERNO -->
+    <a href="https://externalreference.com/" target="_blank" rel="noopener noreferrer" class="logo-link">
+      <img src="images/ER_Logotipo_Negro.png" alt="External Reference Logo" class="site-logo">
+    </a>
+
+    <!-- MENU IN ALTO A DESTRA -->
+    <button class="menu-toggle" id="menuBtn">
+      <span>Menu</span>
+    </button>
+  </header>
+
+  <!-- OVERLAY MENU -->
+  <div class="nav-overlay" id="navOverlay">
+    <ul class="nav-links">
+      <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+      <li><a href="#about" onclick="toggleMenu()">Studio</a></li>
+      <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <span class="hero-label">Architecture & Spatial Experience</span>
+    <h1 class="hero-title">We transform ideas into spatial and visual experiences.</h1>
+  </section>
+
+  <!-- FILTRI PROGETTI -->
+  <div class="controls-bar" id="projects">
+    <div class="filter-buttons">
+      <button class="filter-btn active" onclick="filterProjects('all')">All Work</button>
+      <button class="filter-btn" onclick="filterProjects('architecture')">Architecture</button>
+      <button class="filter-btn" onclick="filterProjects('interiors')">Interiors</button>
+      <button class="filter-btn" onclick="filterProjects('concepts')">AI Concepts</button>
+    </div>
+    <span class="project-count">03 Selected Projects</span>
+  </div>
+
+  <!-- GRIGLIA PROGETTI -->
+  <main class="projects-grid">
+
+    <!-- PROGETTO 1 -->
+    <a href="#" class="project-item" data-category="architecture">
+      <div class="project-media-wrapper">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Monolith Pavilion">
+      </div>
+      <div class="project-meta">
+        <div class="project-info">
+          <h3>Monolithic Pavilion</h3>
+          <p>Architecture / Digital Fabrication</p>
+        </div>
+        <span class="project-number">01</span>
+      </div>
+    </a>
+
+    <!-- PROGETTO 2 -->
+    <a href="#" class="project-item" data-category="interiors">
+      <div class="project-media-wrapper">
+        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80" alt="Organic Retail">
+      </div>
+      <div class="project-meta">
+        <div class="project-info">
+          <h3>Organic Spatial Experience</h3>
+          <p>Interior / Retail Design</p>
+        </div>
+        <span class="project-number">02</span>
+      </div>
+    </a>
+
+    <!-- PROGETTO 3 -->
+    <a href="#" class="project-item" data-category="concepts">
+      <div class="project-media-wrapper">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" alt="AI Fluid Concept">
+      </div>
+      <div class="project-meta">
+        <div class="project-info">
+          <h3>Fluid Landmark</h3>
+          <p>AI Concept / Midjourney v6</p>
+        </div>
+        <span class="project-number">03</span>
+      </div>
+    </a>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="footer-brand">
+      <a href="https://externalreference.com/" target="_blank" rel="noopener noreferrer">
+        <img src="images/ER_Logotipo_Negro.png" alt="External Reference Logo" class="footer-logo">
+      </a>
+      <p>Exploring architecture as a territory for innovation through digital experimentation and spatial emotion.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#projects">Work</a></li>
+        <li><a href="#about">Studio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="mailto:info@esempio.com">Email</a></li>
+        <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+        <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT PER INTERATTIVITÀ -->
+  <script>
+    // Gestione Menu Overlay
+    const menuBtn = document.getElementById('menuBtn');
+    const navOverlay = document.getElementById('navOverlay');
+
+    function toggleMenu() {
+      navOverlay.classList.toggle('active');
+      if (navOverlay.classList.contains('active')) {
+        menuBtn.querySelector('span').textContent = 'Close';
+      } else {
+        menuBtn.querySelector('span').textContent = 'Menu';
+      }
+    }
+
+    menuBtn.addEventListener('click', toggleMenu);
+
+    // Gestione Filtri Progetti
+    function filterProjects(category) {
+      const items = document.querySelectorAll('.project-item');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      items.forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
