@@ -1,4 +1,511 @@
- </section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Portfolio External Reference — AI & Spatial Design</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.cdnfonts.com/css/circular-std-sp" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-white: #ffffff;
+      --text-black: #000000;
+      --border-gray: #e5e5e5;
+      --muted: #707070;
+      --font-circular: 'Circular Std', 'Circular', -apple-system,
+        BlinkMacSystemFont, 'Inter', sans-serif;
+
+      /* Spaziature fluide: si adattano alla larghezza dello schermo */
+      --gutter: clamp(1.25rem, 4vw, 3rem);
+      --header-h: clamp(4.5rem, 8vw, 7rem);
+      --logo-h: clamp(30px, 4vw, 48px);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--header-h);
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background-color: var(--bg-white);
+      color: var(--text-black);
+      font-family: var(--font-circular);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img,
+    video {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--header-h);
+      padding: env(safe-area-inset-top, 0px) var(--gutter) 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-gray);
+      background-color: rgba(255, 255, 255, 0.9);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .site-logo {
+      height: var(--logo-h);
+      width: auto;
+    }
+
+    .menu-toggle {
+      background: none;
+      border: none;
+      font-family: var(--font-circular);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      cursor: pointer;
+      color: var(--text-black);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 44px;           /* area tattile minima */
+      padding: 0 0.25rem;
+    }
+
+    /* Quando il menu è aperto, l'header diventa nero come l'overlay */
+    body.menu-open header {
+      background-color: var(--text-black);
+      border-bottom-color: #222;
+    }
+
+    body.menu-open .menu-toggle {
+      color: var(--bg-white);
+    }
+
+    body.menu-open .site-logo {
+      filter: invert(1);
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    /* =========================================================
+       MENU OVERLAY
+       ========================================================= */
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      background-color: var(--text-black);
+      color: var(--bg-white);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: var(--header-h) var(--gutter) env(safe-area-inset-bottom, 0px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .nav-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-links {
+      list-style: none;
+      text-align: center;
+    }
+
+    .nav-links li {
+      margin: clamp(0.75rem, 3vh, 1.5rem) 0;
+    }
+
+    .nav-links a {
+      font-family: var(--font-circular);
+      font-size: clamp(2rem, 8vw, 4rem);
+      font-weight: 700;
+      color: var(--bg-white);
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+    .hero {
+      min-height: 80vh;
+      min-height: 80svh;
+      padding: calc(var(--header-h) + clamp(2rem, 6vw, 4rem)) var(--gutter) clamp(2.5rem, 6vw, 4rem);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      border-bottom: 1px solid var(--border-gray);
+      background-color: var(--bg-white);
+    }
+
+    .hero-title {
+      font-family: var(--font-circular);
+      font-size: clamp(2.1rem, 6vw + 0.5rem, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      max-width: 1200px;
+      margin: 0;
+      text-align: left;
+      text-wrap: balance;
+      overflow-wrap: break-word;
+    }
+
+    /* =========================================================
+       FILTRI
+       ========================================================= */
+    .controls-bar {
+      padding: clamp(1.25rem, 3vw, 2rem) var(--gutter);
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      border-bottom: 1px solid var(--border-gray);
+      background-color: var(--bg-white);
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+    }
+
+    .filter-btn {
+      background: none;
+      border: none;
+      font-family: var(--font-circular);
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.3s;
+      min-height: 44px;
+      white-space: nowrap;
+    }
+
+    .filter-btn.active {
+      color: var(--text-black);
+      font-weight: 700;
+    }
+
+    /* =========================================================
+       GRIGLIA PROGETTI
+       ========================================================= */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border-bottom: 1px solid var(--border-gray);
+      background-color: var(--bg-white);
+    }
+
+    .project-item {
+      border-right: 1px solid var(--border-gray);
+      border-bottom: 1px solid var(--border-gray);
+      padding: clamp(1.5rem, 3.5vw, 3rem);
+      text-decoration: none;
+      color: var(--text-black);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background-color 0.4s ease;
+      background-color: var(--bg-white);
+      min-width: 0;
+    }
+
+    .project-item:nth-child(2n) {
+      border-right: none;
+    }
+
+    .project-media-wrapper {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background-color: #f0f0f0;
+      margin-bottom: clamp(1rem, 2.5vw, 2rem);
+    }
+
+    .project-media-wrapper img,
+    .project-media-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .project-info {
+      min-width: 0;
+    }
+
+    .project-info h3 {
+      font-family: var(--font-circular);
+      font-size: clamp(1.3rem, 2vw + 0.5rem, 1.75rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .project-info p {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    .project-number {
+      font-family: var(--font-circular);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+    footer {
+      padding: clamp(3.5rem, 8vw, 6rem) var(--gutter) calc(clamp(2rem, 4vw, 3rem) + env(safe-area-inset-bottom, 0px));
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: clamp(2rem, 4vw, 3rem);
+      background-color: var(--bg-white);
+    }
+
+    .footer-logo {
+      height: clamp(28px, 3vw, 36px);
+      width: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-brand p {
+      color: var(--muted);
+      max-width: 400px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .footer-col h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 1.25rem;
+      color: var(--muted);
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-col a {
+      color: var(--text-black);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: opacity 0.3s;
+    }
+
+    /* =========================================================
+       HOVER — solo su dispositivi con mouse
+       (evita effetti "bloccati" al tocco su mobile)
+       ========================================================= */
+    @media (hover: hover) and (pointer: fine) {
+      .nav-links a:hover,
+      .footer-col a:hover {
+        opacity: 0.5;
+      }
+
+      .filter-btn:hover {
+        color: var(--text-black);
+      }
+
+      .project-item:hover {
+        background-color: #fcfcfc;
+      }
+
+      .project-item:hover .project-media-wrapper img,
+      .project-item:hover .project-media-wrapper video {
+        transform: scale(1.03);
+      }
+    }
+
+    /* Focus visibile da tastiera */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 4px;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    /* Tablet */
+    @media (max-width: 1024px) {
+      footer {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* Mobile / tablet verticale */
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 65vh;
+        min-height: 65svh;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-item {
+        border-right: none;
+      }
+
+      /* Filtri: scorrimento orizzontale invece di andare a capo */
+      .controls-bar {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .filter-buttons {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 var(--gutter);
+        scroll-padding: 0 var(--gutter);
+        width: 100%;
+      }
+
+      .filter-buttons::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    /* Smartphone piccoli */
+    @media (max-width: 480px) {
+      .hero-title {
+        line-height: 1.08;
+      }
+
+      footer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Schermi in orizzontale con poca altezza */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .hero {
+        min-height: auto;
+      }
+    }
+
+    /* Riduzione del movimento */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="https://externalreference.com/"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="logo-link">
+
+      <img src="images/ER_Logotipo_Negro.png"
+           alt="External Reference Logo"
+           class="site-logo">
+
+    </a>
+
+    <button class="menu-toggle" id="menuBtn" aria-expanded="false" aria-controls="navOverlay">
+      <span>Menu</span>
+    </button>
+  </header>
+
+  <!-- MENU OVERLAY -->
+  <div class="nav-overlay" id="navOverlay">
+    <ul class="nav-links">
+      <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+      <li><a href="#about" onclick="toggleMenu()">Studio</a></li>
+      <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <h1 class="hero-title">
+      We transform ideas into spatial and visual experiences.
+    </h1>
+
+  </section>
 
   <!-- FILTRI -->
   <div class="controls-bar" id="projects">
