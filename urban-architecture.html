@@ -590,6 +590,52 @@
       color: var(--black);
     }
 
+    /* ---------- Lista a griglia (desktop e tablet) ---------- */
+    @media (min-width: 768px) {
+      .col:not(.open) .col-inner {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        column-gap: 2.1rem;
+        row-gap: 4.8rem;
+        padding: 8.4rem 2.8rem 13rem 2.1rem;
+      }
+      .col:not(.open) .project,
+      .col:not(.open):not(.closed) .project:not(.active):hover {
+        height: auto;
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+      }
+      .col:not(.open) .project .row { order: 1; display: block; padding: 0; overflow: visible; }
+      .col:not(.open) .project .slide-credits,
+      .col:not(.open) .project .slide-image,
+      .col:not(.open) .project .slide-text,
+      .col:not(.open) .project .navigator { display: none; }
+      .col:not(.open) .project .picture-featured,
+      .col:not(.open):not(.closed) .project:not(.active):hover .picture-featured {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 2400 / 1608;
+        margin: 0;
+        padding: 0;
+      }
+      .col:not(.open) .project .picture-featured img { transition: transform .6s cubic-bezier(.16, 1, .3, 1); }
+      .col:not(.open) .project .info {
+        position: static;
+        order: 2;
+        width: 100%;
+        height: auto;
+        padding: 1.2rem 0 0;
+      }
+      .col.open .project:not(.active) { display: none; }
+    }
+    @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+      .col:not(.open) .project:hover .picture-featured img { transform: scale(1.03); }
+    }
+    @media (min-width: 768px) and (max-width: 1099px) {
+      .col:not(.open) .col-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
     footer { display: none; }
 
     /* ---------- Mobile (come il sito, sotto i 768 px) ---------- */
