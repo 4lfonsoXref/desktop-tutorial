@@ -198,6 +198,18 @@
       max-width: 22ch;
     }
 
+    .hero-studio {
+      display: inline-block;
+      margin-top: 3.2rem;
+      font-size: 1.2rem;
+      line-height: 1.2;
+      color: var(--grey);
+      text-decoration: underline;
+      text-underline-offset: .33rem;
+      transition: color .3s ease;
+    }
+    @media (hover: hover) { .hero-studio:hover { color: var(--black); } }
+
     .categories {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -241,7 +253,19 @@
 
     @media (max-width: 767px) {
       .hero { padding: 10.4rem 1rem 4.5rem; }
-      .categories { grid-template-columns: 1fr; }
+      .hero-studio {
+      display: inline-block;
+      margin-top: 3.2rem;
+      font-size: 1.2rem;
+      line-height: 1.2;
+      color: var(--grey);
+      text-decoration: underline;
+      text-underline-offset: .33rem;
+      transition: color .3s ease;
+    }
+    @media (hover: hover) { .hero-studio:hover { color: var(--black); } }
+
+    .categories { grid-template-columns: 1fr; }
       .category { border-right: 0; padding: 0 1rem 4rem; }
       .category:first-child { padding-top: 2.4rem; }
       .category picture { padding-left: 0; order: -1; margin-bottom: 1.2rem; }
@@ -263,6 +287,7 @@
 
   <nav class="menu-panel" id="menuPanel" aria-label="Menu">
     <ul>
+      <li><a href="studio.html">Studio</a></li>
       <li><a href="index.html#projects">Projects</a></li>
       <li><a href="urban-architecture.html">Urban &amp; Architecture</a></li>
       <li><a href="index.html#projects">Interior</a></li>
@@ -270,8 +295,7 @@
     </ul>
     <small>External Reference</small>
     <ul>
-      <li><a href="https://externalreference.com/studio/" target="_blank" rel="noopener">Studio</a></li>
-      <li><a href="https://externalreference.com/services/" target="_blank" rel="noopener">Services</a></li>
+      <li><a href="https://externalreference.com/" target="_blank" rel="noopener">Website</a></li>
       <li><a href="https://externalreference.com/news/" target="_blank" rel="noopener">News</a></li>
     </ul>
   </nav>
@@ -279,6 +303,7 @@
   <main>
     <section class="hero">
       <h1>We transform ideas into spatial and visual experiences.</h1>
+      <a class="hero-studio" href="studio.html">Our Story, Approach &amp; Team</a>
     </section>
 
     <section class="categories" id="projects">
@@ -332,8 +357,8 @@ Business Bay, Dubai</a></li>
       </ul>
       <ul>
         <li><a href="index.html#projects">Projects</a></li>
-        <li><a href="https://externalreference.com/studio/" target="_blank" rel="noopener">Studio</a></li>
-        <li><a href="https://externalreference.com/services/" target="_blank" rel="noopener">Services</a></li>
+        <li><a href="studio.html">Studio</a></li>
+        <li><a href="studio.html#design-services">Services</a></li>
         <li><a href="https://externalreference.com/news/" target="_blank" rel="noopener">News</a></li>
         <li><a href="https://externalreference.com/external-research-lab/" target="_blank" rel="noopener">External Research Lab</a></li>
       </ul>
